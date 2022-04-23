@@ -1,0 +1,3 @@
+a,20,kela
+abd,120,kela
+x,10,kela

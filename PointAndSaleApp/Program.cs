@@ -13,23 +13,23 @@ namespace PointAndSaleApp
     {
         static void Main ()
         {
-            MUserDL.readDataFromFile();
+            MUserDL.loadFromFile("MUser.txt");
+            ProductDL.loadFromFile("prod.txt");
+            CustomerDL.loadFromFile("cust.txt");
             int op = 0;
             while (op < 3)
             {
-                clearScreen();
                 op = mainMenu();
                 clearScreen();
 
                 if (op == 1)
                 {
-                    clearScreen();
                     MUser newUser = MuserUI.SignIn();
+                    clearScreen();
                     if (newUser != null)
                     {
                         if (newUser.isAdmin())
                         {
-                            clearScreen();
                             int op1 = 0;
                             while (op1 < 6)
                             {
@@ -37,8 +37,9 @@ namespace PointAndSaleApp
                                 clearScreen();
                                 if (op1 == 1)
                                 {
-
-                                    ProductDL.addProductIntoList(ProductUI.addProduct());
+                                    Product newProduct = ProductUI.addProduct();
+                                    ProductDL.addProductIntoList(newProduct);
+                                    ProductDL.storeIntoFile("prod.txt" , newProduct);
                                     clearScreen();
                                 }
                                 else if (op1 == 2)
@@ -69,6 +70,8 @@ namespace PointAndSaleApp
                         }
                         else
                         {
+
+                            Customer myCust = CustomerDL.isCustomerPresent(newUser.getUserName());
                             int op2 = 0;
                             clearScreen();
 
@@ -85,13 +88,13 @@ namespace PointAndSaleApp
                                 else if (op2 == 2)
                                 {
 
-                                    CustomerUI.buyProduct();
+                                    CustomerUI.buyProduct(myCust);
                                     clearScreen();
                                 }
                                 else if (op2 == 3)
                                 {
 
-                                    CustomerUI.generateInvoice();
+                                    CustomerUI.generateInvoice(myCust);
                                     clearScreen();
                                 }
                             }
@@ -100,16 +103,16 @@ namespace PointAndSaleApp
                 }
                 else if (op == 2)
                 {
-                    clearScreen();
                     MUser newUser = MuserUI.signUp();
                     MUserDL.addUserIntoList(newUser);
-                    MUserDL.StoreUserintoList();
+                    MUserDL.storeIntoFile("MUser.txt" , newUser);
+                    clearScreen();
+
                 }
+
             }
+            CustomerDL.storeIntoFile("cust.txt");
         }
-
-
-
 
         static int mainMenu ()
         {
@@ -124,37 +127,10 @@ namespace PointAndSaleApp
         }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         static void clearScreen ()
         {
+            //Console.WriteLine(CustomerDL.getcustomersList().Count);
+
             Console.WriteLine("Press any key to continue...");
             Console.ReadKey();
             Console.Clear();

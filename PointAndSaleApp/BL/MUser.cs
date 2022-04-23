@@ -8,9 +8,9 @@ namespace PointAndSaleApp.BL
 {
     class MUser
     {
-        public string userName;
-        public string userPassword;
-        public string userRole;
+        private string userName;
+        private string userPassword;
+        private string userRole;
         public MUser (string userName , string userPassword)
         {
             this.userName = userName;
@@ -21,6 +21,30 @@ namespace PointAndSaleApp.BL
         {
             this.userName = userName;
             this.userPassword = userPassword;
+            this.userRole = userRole;
+        }
+        public string getUserName ()
+        {
+            return userName;
+        }
+        public string getUserPassword ()
+        {
+            return userPassword;
+        }
+        public string getUserRole ()
+        {
+            return userRole;
+        }
+        public void setUserName (string userName)
+        {
+            this.userName = userName;
+        }
+        public void setUserPassword (string userPassword)
+        {
+            this.userPassword = userPassword;
+        }
+        public void setUserRole (string userRole)
+        {
             this.userRole = userRole;
         }
         public bool isAdmin ()

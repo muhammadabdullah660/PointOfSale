@@ -52,26 +52,42 @@ namespace PointAndSaleApp.UI
         }
         public static void viewProducts ()
         {
-            List<Product> productsList = ProductDL.returnProducts();
+            List<Product> productsList = ProductDL.getProducts();
             Console.WriteLine("NAME\tCATEGORY\tPRICE\tSTOCK QUANTITY\tMINIMUN STOCK QUANTITY");
             foreach (Product item in productsList)
             {
-                Console.WriteLine($"{item.name}\t{item.category}\t{item.price}\t{item.stockQuantity}\t{item.minStockQ}");
+                string name = item.getName();
+                string category = item.getCategory();
+                int price = item.getPrice();
+                int stockQuantity = item.getQuantity();
+                int minStockQ = item.getMinQuantity();
+                Console.WriteLine($"{name}\t{category}\t{price}\t{stockQuantity}\t{minStockQ}");
             }
         }
         public static void viewProductWithHighestPrice ()
         {
             Console.WriteLine("NAME\tCATEGORY\tPRICE\tSTOCK QUANTITY\tMINIMUN STOCK QUANTITY");
             Product item = ProductDL.highest();
-            Console.WriteLine($"{item.name}\t{item.category}\t{item.price}\t{item.stockQuantity}\t{item.minStockQ}");
+            string name = item.getName();
+            string category = item.getCategory();
+            int price = item.getPrice();
+            int stockQuantity = item.getQuantity();
+            int minStockQ = item.getMinQuantity();
+            Console.WriteLine($"{name}\t{category}\t{price}\t{stockQuantity}\t{minStockQ}");
         }
         public static void viewSalesTax ()
         {
-            List<Product> productsList = ProductDL.returnProducts();
+            List<Product> productsList = ProductDL.getProducts();
             Console.WriteLine("NAME\tCATEGORY\tPRICE\tSTOCK QUANTITY\tMINIMUN STOCK QUANTITY\tSALES TAX");
             foreach (Product item in productsList)
             {
-                Console.WriteLine($"{item.name}\t{item.category}\t{item.price}\t{item.stockQuantity}\t{item.minStockQ}\t{(item.tax * item.price) + item.price}");
+                string name = item.getName();
+                string category = item.getCategory();
+                int price = item.getPrice();
+                int stockQuantity = item.getQuantity();
+                int minStockQ = item.getMinQuantity();
+                float tax = item.getTax();
+                Console.WriteLine($"{name}\t{category}\t{price}\t{stockQuantity}\t{minStockQ}\t{(tax) + price}");
             }
         }
         public static void lessThanThresholdProducts ()
@@ -80,7 +96,12 @@ namespace PointAndSaleApp.UI
             Console.WriteLine("NAME\tCATEGORY\tPRICE\tSTOCKQUANTITY\tMINIMUNSTOCKQUANTITY\tSALESTAX");
             foreach (Product item in productsToBuyList)
             {
-                Console.WriteLine($"{item.name}\t{item.category}\t{item.price}\t{item.stockQuantity}\t{item.minStockQ}");
+                string name = item.getName();
+                string category = item.getCategory();
+                int price = item.getPrice();
+                int stockQuantity = item.getQuantity();
+                int minStockQ = item.getMinQuantity();
+                Console.WriteLine($"{name}\t{category}\t{price}\t{stockQuantity}\t{minStockQ}");
             }
         }
     }

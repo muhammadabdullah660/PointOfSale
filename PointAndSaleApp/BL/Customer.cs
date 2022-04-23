@@ -8,22 +8,36 @@ namespace PointAndSaleApp.BL
 {
     class Customer
     {
-        public static List<Product> purchaseProducts = new List<Product>();
-
-        public static void customerQuantity (Product myProduct , int quantity)
+        private List<Product> purchaseProducts = new List<Product>();
+        private MUser userId;
+        public double bill;
+        public Customer (MUser userId)
         {
-            myProduct.stockQuantity = quantity;
+            this.userId = userId;
         }
-        public static void addProductIntoListCustomer (Product newProduct)
+        public List<Product> getPurchaseProducts ()
+        {
+            return purchaseProducts;
+        }
+        public MUser getuserId ()
+        {
+            return userId;
+        }
+        public void customerQuantity (Product myProduct , int stockQuantity)
+        {
+
+            myProduct.setQuantity(stockQuantity);
+        }
+        public void addProductIntoListCustomer (Product newProduct)
         {
             purchaseProducts.Add(newProduct);
         }
-        public static double invoice ()
+        public double invoice ()
         {
             double bill = 0;
             foreach (Product item in purchaseProducts)
             {
-                bill += item.stockQuantity * (item.price + (item.tax * item.price));
+                bill += item.getQuantity() * (item.getPrice() + (item.getTax()));
             }
             return bill;
         }

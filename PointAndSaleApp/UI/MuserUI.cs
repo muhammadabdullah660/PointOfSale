@@ -19,6 +19,11 @@ namespace PointAndSaleApp.UI
             string userRole = Console.ReadLine();
 
             MUser user = new MUser(userName , userPassword , userRole);
+            if (userRole != "Admin")
+            {
+                Customer cust = new Customer(user);
+                CustomerDL.addIntoCustomerList(cust);
+            }
             return user;
 
         }

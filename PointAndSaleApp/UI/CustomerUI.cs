@@ -29,14 +29,14 @@ namespace PointAndSaleApp.UI
         }
         public static void viewProducts ()
         {
-            List<Product> productsList = ProductDL.returnProducts();
+            List<Product> productsList = ProductDL.getProducts();
             Console.WriteLine("NAME\tCATEGORY\tPRICE\tSTOCK QUANTITY\tMINIMUN STOCK QUANTITY");
             foreach (Product item in productsList)
             {
-                Console.WriteLine($"{item.name}\t{item.category}\t{item.price}\t{item.stockQuantity}\t{item.minStockQ}");
+                Console.WriteLine($"{item.getName()}\t{item.getCategory()}\t{item.getPrice()}\t{item.getQuantity()}\t{item.getMinQuantity()}");
             }
         }
-        public static void buyProduct ()
+        public static void buyProduct (Customer myCust)
         {
             Console.WriteLine("Enter number of Products you want to buy:");
             int count = int.Parse(Console.ReadLine());
@@ -50,12 +50,12 @@ namespace PointAndSaleApp.UI
 
                     Console.WriteLine("Enter the quantity of product :");
                     int productQuantity = int.Parse(Console.ReadLine());
-                    if (product.stockQuantity > productQuantity)
+                    if (product.getMinQuantity() > productQuantity)
                     {
                         product.changeQuantity(productQuantity);
                         Product p1 = new Product(product);
-                        Customer.customerQuantity(p1 , productQuantity);
-                        Customer.addProductIntoListCustomer(p1);
+                        myCust.customerQuantity(p1 , productQuantity);
+                        myCust.addProductIntoListCustomer(p1);
                     }
                     else
                     {
@@ -66,17 +66,17 @@ namespace PointAndSaleApp.UI
                 }
             }
         }
-        public static void generateInvoice ()
+        public static void generateInvoice (Customer myCust)
         {
             /*Console.WriteLine($"CUSTOMER NAME : {cust.customerName}");
             Console.WriteLine("------------------------------");*/
-            List<Product> productsList = Customer.purchaseProducts;
-            Console.WriteLine("NAME\tCATEGORY\tPRICE\tPURCHASE QUANTITY\tSALES TAX");
+            List<Product> productsList = myCust.getPurchaseProducts();
+            Console.WriteLine("NAME\tCATEGORYPRICE");
             foreach (Product item in productsList)
             {
-                Console.WriteLine($"{item.name}\t{item.category}\t{item.price}\t{item.stockQuantity}\t{item.tax * 100}%");
+                Console.WriteLine($"{item.getName()}\t{item.getCategory()}\t{item.getPrice()}");
             }
-            Console.WriteLine("Total Bill : " + Customer.invoice());
+            Console.WriteLine("Total Bill : " + myCust.bill);
             Console.ReadKey();
         }
     }
